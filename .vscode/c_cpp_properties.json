@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/devel/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/DIME-Controllers/devel/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/DotView_ros_driver/DotView_driver/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/Allegro-Hand-Controller-DotView/src/allegro_hand_driver/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/Allegro-Hand-Controller-DotView/src/bhand/include/**",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/src/Kinova-Arm-Controller-DIME/kinova_driver/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/Allegro-Hand-Controller-DotView/src/ll4ma_kdl/include/**",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/src/netft_utils/include/**",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/src/robotiq_2finger_grippers/robotiq_2f_gripper_control/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/senseglove_nova_ros/src/hardware_interface/senseglove_hardware/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/senseglove_nova_ros/src/hardware_interface/senseglove_hardware_builder/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/senseglove_nova_ros/src/hardware_interface/senseglove_hardware_interface/include/**",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/src/usb_cam/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

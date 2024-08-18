@@ -1,0 +1,16 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/devel/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/LfD_tactile/DIME-Controllers/devel/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS/devel/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/LfD_tactile/DIME-Controllers/devel/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/ROS1_workspaces/tactile_robot_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/haoran_zheng/Documents/LfD_tactile/Avatar-ROS"
+    ]
+}
