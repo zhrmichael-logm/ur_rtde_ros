@@ -1,6 +1,6 @@
 # UR RTDE ROS Package
 
-This ROS package provides an interface to control a Universal Robots (UR) robot using the Real-Time Data Exchange (RTDE) protocol. It includes services for setting modes, moving to poses, scheduling waypoints, and retrieving TCP and joint states.
+This ROS package provides an interface to control a Universal Robots (UR) robot arm using the Real-Time Data Exchange (RTDE) protocol. It includes services for setting modes, moving to poses, scheduling waypoints, and retrieving TCP and joint states.
 
 ## Features
 
@@ -13,32 +13,32 @@ This ROS package provides an interface to control a Universal Robots (UR) robot 
 ## Dependencies
 - `numpy`
 - `rospy`
-- `rtde_control` (RTDE Control Interface)
-- `rtde_receive` (RTDE Receive Interface)
-- [`ur_rtde_ros`](command:_github.copilot.openSymbolFromReferences?%5B%7B%22%24mid%22%3A1%2C%22path%22%3A%22%2Fhome%2Fhaoran_zheng%2FDocuments%2FLfD_tactile%2FAvatar-ROS%2Fdevel%2Flib%2Fpython3%2Fdist-packages%2Fur_rtde_ros%2F__init__.py%22%2C%22scheme%22%3A%22file%22%7D%2C%7B%22line%22%3A0%2C%22character%22%3A0%7D%5D "devel/lib/python3/dist-packages/ur_rtde_ros/__init__.py") (Custom ROS services)
-- [`utils.pose_trajectory_interpolator`](command:_github.copilot.openSymbolFromReferences?%5B%7B%22%24mid%22%3A1%2C%22path%22%3A%22%2Fhome%2Fhaoran_zheng%2FDocuments%2FLfD_tactile%2FAvatar-ROS%2Fsrc%2Fur_rtde_ros%2Futils%2F__init__.py%22%2C%22scheme%22%3A%22file%22%7D%2C%7B%22line%22%3A0%2C%22character%22%3A0%7D%5D "src/ur_rtde_ros/utils/__init__.py") (Pose Trajectory Interpolator)
+- `scipy`
+- [`rtde_control` & `rtde_receive`](url:https://sdurobotics.gitlab.io/ur_rtde/)
+
 
 ## Installation
 
 1. Clone the repository into your ROS workspace:
-    ```sh
-    cd ~/catkin_ws/src
+    ```bash
+    cd ~/<your_catkin_ws>/src
     git clone <repository_url>
     ```
 
 2. Install the required dependencies:
-    ```sh
-    pip install numpy
+    ```bash
+    pip install numpy, scipy
+    pip install --user ur_rtde
     ```
 
 3. Build the workspace:
-    ```sh
-    cd ~/catkin_ws
-    catkin_make
+    ```bash
+    cd ~/<your_catkin_ws>
+    catkin build
     ```
 
 4. Source the workspace:
-    ```sh
+    ```bash
     source devel/setup.bash
     ```
 

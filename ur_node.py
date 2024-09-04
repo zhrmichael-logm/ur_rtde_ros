@@ -42,11 +42,11 @@ class URNode:
             raise Exception("Unable to connect to RTDEReceiveInterface")
 
         # Services
-        rospy.Service("set_mode", set_mode, self.set_mode)
-        rospy.Service("moveL", moveL, self.move_to_pose)
-        rospy.Service("schedule_waypoint", schedule_waypoint, self.schedule_waypoint)
-        rospy.Service("get_tcp_states", get_states, self.get_tcp_states)
-        rospy.Service("get_joint_states", get_states, self.get_joint_states)
+        rospy.Service("/ur_node/set_mode", set_mode, self.set_mode)
+        rospy.Service("/ur_node/moveL", moveL, self.move_to_pose)
+        rospy.Service("/ur_node/schedule_waypoint", schedule_waypoint, self.schedule_waypoint)
+        rospy.Service("/ur_node/get_tcp_states", get_states, self.get_tcp_states)
+        rospy.Service("/ur_node/get_joint_states", get_states, self.get_joint_states)
 
         self.mode = MODE_MAP["IDLE"]
         self.last_waypoint_time = None
@@ -107,7 +107,7 @@ class URNode:
     def servo_loop(self):
         dt = 1.0 / self.frequency
         while not rospy.is_shutdown():
-            
+
             if self.mode != MODE_MAP["SERVOL"]:
                 # idle servo loop
                 rospy.sleep(dt)
@@ -128,7 +128,6 @@ class URNode:
                     self.ur_control.waitPeriod(t_start)
                     # rospy.loginfo(f"loop actual dt: {(time.time() - ts)*1000:.3f}ms")
                 self.ur_control.servoStop(a=0.3)
-                
 
 
 def main():

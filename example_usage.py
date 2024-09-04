@@ -5,14 +5,14 @@ from ur_rtde_ros.srv import set_mode, moveL, schedule_waypoint, get_states
 
 rospy.init_node("ros_example")
 
-rospy.wait_for_service("/set_mode")
-rospy.wait_for_service("/moveL")
-rospy.wait_for_service("/schedule_waypoint")
-rospy.wait_for_service("/get_tcp_states")
-set_mode = rospy.ServiceProxy("/set_mode", set_mode)
-moveL = rospy.ServiceProxy("/moveL", moveL)
-schedule_waypoint = rospy.ServiceProxy("/schedule_waypoint", schedule_waypoint)
-get_tcp_states = rospy.ServiceProxy("/get_tcp_states", get_states)
+rospy.wait_for_service("ur_node/set_mode", timeout=10)
+rospy.wait_for_service("ur_node/moveL", timeout=10)
+rospy.wait_for_service("ur_node/schedule_waypoint", timeout=10)
+rospy.wait_for_service("ur_node/get_tcp_states", timeout=10)
+set_mode = rospy.ServiceProxy("ur_node/set_mode", set_mode)
+moveL = rospy.ServiceProxy("ur_node/moveL", moveL)
+schedule_waypoint = rospy.ServiceProxy("ur_node/schedule_waypoint", schedule_waypoint)
+get_tcp_states = rospy.ServiceProxy("ur_node/get_tcp_states", get_states)
 
 
 # Set the robot to MOVEL mode

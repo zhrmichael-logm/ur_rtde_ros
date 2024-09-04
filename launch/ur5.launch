@@ -1,8 +1,10 @@
 <launch>
     <node pkg="ur_rtde_ros" name="ur_rtde" type="ur_node.py" output="screen">
-          <param name="ip" type="str" value="10.42.0.123" />
-          <param name="frequency" type="double" value="125" />
-          <param name="servo_lookahead_time" type="double" value="0.20" />
-          <param name="servo_gain" type="double" value="300" />
+        <param name="ip" type="str" value="10.42.0.123" />
+        <param name="frequency" type="double" value="125" />
+        <param name="servo_lookahead_time" type="double" value="0.20" />
+        <param name="servo_gain" type="double" value="300" />
+        <param name="max_pos_speed" type="double" value="1.0" />
+        <param name="max_rot_speed" type="double" value="1.0" />
     </node>   
 </launch>
