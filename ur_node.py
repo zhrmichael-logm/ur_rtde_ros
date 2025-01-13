@@ -2,6 +2,7 @@
 import numpy as np
 import time
 import rospy
+from std_msgs.msg import Float64MultiArray
 
 # import scipy.interpolate as si
 # import scipy.spatial.transform as st
@@ -44,9 +45,13 @@ class URNode:
         # Services
         rospy.Service("/ur_node/set_mode", set_mode, self.set_mode)
         rospy.Service("/ur_node/moveL", moveL, self.move_to_pose)
-        rospy.Service("/ur_node/schedule_waypoint", schedule_waypoint, self.schedule_waypoint)
-        rospy.Service("/ur_node/get_tcp_states", get_states, self.get_tcp_states)
-        rospy.Service("/ur_node/get_joint_states", get_states, self.get_joint_states)
+        # rospy.Service("/ur_node/schedule_waypoint", schedule_waypoint, self.schedule_waypoint)
+        rospy.Subscriber(
+            "/ur_node/cmd_schedule_tcp_pose", Float64MultiArray, self.schedule_waypoint_cb, queue_size=1
+        )
+        # rospy.Service("/ur_node/get_tcp_states", get_states, self.get_tcp_states)
+        # rospy.Service("/ur_node/get_joint_states", get_states, self.get_joint_states)
+        self.tcp_pose_pub = rospy.Publisher("/ur_node/tcp_pose", Float64MultiArray, queue_size=1)
 
         self.mode = MODE_MAP["IDLE"]
         self.last_waypoint_time = None
@@ -84,14 +89,13 @@ class URNode:
         assert self.ur_control.moveL(target_pose, target_vel, target_acc, False)
         return {"success": True}
 
-    def schedule_waypoint(self, req):
+    def schedule_waypoint_cb(self, msg):
         if self.mode != MODE_MAP["SERVOL"]:
-            return {"success": False}
-        target_pose = np.array(req.pose)
-        target_time = float(req.target_time)
-        # translate global time to monotonic time
-        # target_time = time.monotonic() - time.time() + target_time
-        # curr_time = t_now + self.dt
+            return
+        # rospy.loginfo(f"Received waypoint: {msg.data}")
+        cmd = np.array(list(msg.data))
+        target_pose = cmd[:6]
+        target_time = cmd[-1]
         curr_time = rospy.get_time()
         self.pose_interp = self.pose_interp.schedule_waypoint(
             pose=target_pose,
@@ -102,14 +106,36 @@ class URNode:
             last_waypoint_time=self.last_waypoint_time,
         )
         self.last_waypoint_time = target_time
-        return {"success": True}
+
+    # def schedule_waypoint(self, req):
+    #     if self.mode != MODE_MAP["SERVOL"]:
+    #         return {"success": False}
+    #     target_pose = np.array(req.pose)
+    #     target_time = float(req.target_time)
+    #     # translate global time to monotonic time
+    #     # target_time = time.monotonic() - time.time() + target_time
+    #     # curr_time = t_now + self.dt
+    #     curr_time = rospy.get_time()
+    #     self.pose_interp = self.pose_interp.schedule_waypoint(
+    #         pose=target_pose,
+    #         time=target_time,
+    #         max_pos_speed=self.max_pos_speed,
+    #         max_rot_speed=self.max_rot_speed,
+    #         curr_time=curr_time,
+    #         last_waypoint_time=self.last_waypoint_time,
+    #     )
+    #     self.last_waypoint_time = target_time
+    #     return {"success": True}
 
     def servo_loop(self):
         dt = 1.0 / self.frequency
         while not rospy.is_shutdown():
+            
 
             if self.mode != MODE_MAP["SERVOL"]:
                 # idle servo loop
+                curr_pose = self.ur_receive.getActualTCPPose()
+                self.tcp_pose_pub.publish(Float64MultiArray(data=curr_pose))
                 rospy.sleep(dt)
             else:
                 curr_time = rospy.get_time()
@@ -117,7 +143,9 @@ class URNode:
                 self.last_waypoint_time = curr_time
                 self.pose_interp = PoseTrajectoryInterpolator(times=[curr_time], poses=[curr_pose])
                 while not rospy.is_shutdown() and self.mode == MODE_MAP["SERVOL"]:
-                    # ts = time.time()
+                    curr_pose = self.ur_receive.getActualTCPPose()
+                    self.tcp_pose_pub.publish(Float64MultiArray(data=curr_pose))
+                    
                     t_start = self.ur_control.initPeriod()
                     t_now = rospy.get_time()
                     pose_command = self.pose_interp(t_now)
